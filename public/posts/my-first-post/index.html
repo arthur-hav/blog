@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Dockerfile for small Rust images (with dependency build caching) | </title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Introduction After reading multiple tutorials for building docker images and optimize them, I compiled an optimized Dockerfile that can:
+Have final images that are small, in the 50MB range Benefit from docker caching, allowing to have build times under 10s if you don&rsquo;t change dependencies We will assume here you start with a project my_app you already have or have created with cargo new.
+Setting up We use this docker file.">
+    <meta name="generator" content="Hugo 0.111.3">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+    
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Dockerfile for small Rust images (with dependency build caching)" />
+<meta property="og:description" content="Introduction After reading multiple tutorials for building docker images and optimize them, I compiled an optimized Dockerfile that can:
+Have final images that are small, in the 50MB range Benefit from docker caching, allowing to have build times under 10s if you don&rsquo;t change dependencies We will assume here you start with a project my_app you already have or have created with cargo new.
+Setting up We use this docker file." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/my-first-post/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-10-25T12:56:00+02:00" />
+<meta property="article:modified_time" content="2023-10-25T12:56:00+02:00" />
+<meta itemprop="name" content="Dockerfile for small Rust images (with dependency build caching)">
+<meta itemprop="description" content="Introduction After reading multiple tutorials for building docker images and optimize them, I compiled an optimized Dockerfile that can:
+Have final images that are small, in the 50MB range Benefit from docker caching, allowing to have build times under 10s if you don&rsquo;t change dependencies We will assume here you start with a project my_app you already have or have created with cargo new.
+Setting up We use this docker file."><meta itemprop="datePublished" content="2023-10-25T12:56:00+02:00" />
+<meta itemprop="dateModified" content="2023-10-25T12:56:00+02:00" />
+<meta itemprop="wordCount" content="508">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Dockerfile for small Rust images (with dependency build caching)"/>
+<meta name="twitter:description" content="Introduction After reading multiple tutorials for building docker images and optimize them, I compiled an optimized Dockerfile that can:
+Have final images that are small, in the 50MB range Benefit from docker caching, allowing to have build times under 10s if you don&rsquo;t change dependencies We will assume here you start with a project my_app you already have or have created with cargo new.
+Setting up We use this docker file."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+<div class="ananke-socials">
+  
+</div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+
+
+
+
+
+
+  <div id="sharing" class="mt3 ananke-socials">
+    
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Dockerfile for small Rust images (with dependency build caching)</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2023-10-25T12:56:00+02:00">October 25, 2023</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><h1 id="introduction">Introduction</h1>
+<p>After reading multiple tutorials for building docker images and optimize them, I compiled an optimized Dockerfile that can:</p>
+<ul>
+<li>Have final images that are small, in the 50MB range</li>
+<li>Benefit from docker caching, allowing to have build times under 10s if you don&rsquo;t change dependencies</li>
+</ul>
+<p>We will assume here you start with a project <code>my_app</code> you already have or have created with <code>cargo new</code>.</p>
+<h1 id="setting-up">Setting up</h1>
+<p>We use this docker file. This technique is called a multi-stage build. When docker builds with <code>docker build</code> or <code>docker compose build</code>, it creates two successive images:</p>
+<ul>
+<li>One that serve to create the binary</li>
+<li>One that will execute the binary without the build environment</li>
+</ul>
+<p>The second one can be minimized by removing unecessary system components that are already bundled in the produced binary.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span><span style="color:#75715e">## BUILDER IMAGE</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> rust:1.73 as builder</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /usr/app</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> USER<span style="color:#f92672">=</span>root cargo new --bin my_app<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /usr/app/my_app</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> ./Cargo.toml  ./Cargo.toml<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Build the dependencies. This is the longest part and we don´t want to repeat it if there is no dependency change,</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># which is why there is no copy or volume for sources at this point</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> cargo build --release<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> rm src/*.rs<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> ./src ./src<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> rm ./target/release/deps/my_app*<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Build the sources</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> cargo build --release<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">## EXECUTOR</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> alpine</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># You can include a healthcheck here, for demons and network-based services.</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># If you do, you will need a healthcheck. For web, don&#39;t forget curl is not immediately available on alpine</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ &#34;curl --fail http://localhost:8000/health&#34; ]</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># RUN apt-get update &amp;&amp; apt-get install -y curl &amp;&amp; rm -rf /var/lib/apt/lists/*</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /usr/app</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> --from<span style="color:#f92672">=</span>builder /usr/app/my_app/target/release/my_app /usr/app/my_app<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> groupadd -g <span style="color:#ae81ff">10001</span> appuser <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>   useradd -u <span style="color:#ae81ff">10000</span> -g appuser appuser <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>   <span style="color:#f92672">&amp;&amp;</span> chown -R appuser:appuser /usr/app<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">USER</span><span style="color:#e6db74"> appuser:appuser</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;/usr/app/my_app&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>In order for it to work on alpine, that don&rsquo;t come with glibc, we will need an addition in the Cargo.toml file to use a custom memory allocator.</p>
+<p>At end of file, below your dependencies, add the following section:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#66d9ef">[target.&#39;cfg(all(target_env = &#34;musl&#34;, target_pointer_width = &#34;64&#34;))&#39;.dependencies.jemallocator]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">version</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0.3&#34;</span>
+</span></span></code></pre></div><p>If you use things that are dependent of openssl, such as reqwest, you might also need to tweak the dependency to include <code>rust-tls</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#a6e22e">reqwest</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">{version = &#34;0.11&#34;, default-features = false, features = [&#34;json&#34;, &#34;rustls-tls&#34;] }</span>
+</span></span></code></pre></div><h2 id="running">Running</h2>
+<p>Try to <code>docker build</code> your image. If it is successful, try to <code>docker run</code> the obtained container. It should execute your binary.</p>
+<p>You notice your first <code>docker build</code> was probably long, several minutes long perhaps.</p>
+<p>Try to modify your sources, then <code>docker build</code> again. You should notice the build to be significantly faster.</p>
+<p>Use <code>docker images</code> and inspect image size. Smaller images are faster to push and pull over network, they also cost less to store.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>We learned to make a multi-stage build to produce small docker images for Rust, and use the best of docker caching to avoid a costy rebuild
+of dependencies at every source change.</p>
+<h2 id="thanks-to--further-reading">Thanks to / further reading</h2>
+<ul>
+<li><a href="https://docs.docker.com/build/building/multi-stage/">Multi stage build for docker</a></li>
+<li><a href="https://hackmd.io/@kobzol/S17NS71bh">Notes from cargo team on dependency caching</a></li>
+</ul>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="/" >
+    &copy; 
+  </a>
+    <div>
+<div class="ananke-socials">
+  
+</div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

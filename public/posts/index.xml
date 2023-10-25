@@ -1,0 +1,83 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Diane M's blog</title><link>princess-entrapta.github.io/blog/posts/</link><description>Recent content in Posts on Diane M's blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 25 Oct 2023 12:56:00 +0200</lastBuildDate><atom:link href="princess-entrapta.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Dockerfile for small Rust images (with dependency build caching)</title><link>princess-entrapta.github.io/blog/posts/build-rust-dockerfile/</link><pubDate>Wed, 25 Oct 2023 12:56:00 +0200</pubDate><guid>princess-entrapta.github.io/blog/posts/build-rust-dockerfile/</guid><description>Introduction After reading multiple tutorials for building docker images and optimize them, I compiled an optimized Dockerfile that can:
+Have final images that are small, in the 50MB range Benefit from docker caching, allowing to have build times under 10s if you don&amp;rsquo;t change dependencies We will assume here you start with a project my_app you already have or have created with cargo new.
+Setting up We use this docker file.</description><content type="html"><![CDATA[<h1 id="introduction">Introduction</h1>
+<p>After reading multiple tutorials for building docker images and optimize them, I compiled an optimized Dockerfile that can:</p>
+<ul>
+<li>Have final images that are small, in the 50MB range</li>
+<li>Benefit from docker caching, allowing to have build times under 10s if you don&rsquo;t change dependencies</li>
+</ul>
+<p>We will assume here you start with a project <code>my_app</code> you already have or have created with <code>cargo new</code>.</p>
+<h1 id="setting-up">Setting up</h1>
+<p>We use this docker file. This technique is called a multi-stage build. When docker builds with <code>docker build</code> or <code>docker compose build</code>, it creates two successive images:</p>
+<ul>
+<li>One that serve to create the binary</li>
+<li>One that will execute the binary without the build environment</li>
+</ul>
+<p>The second one can be minimized by removing unecessary system components that are already bundled in the produced binary.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="c">## BUILDER IMAGE</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="s"> rust:1.73 as builder</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /usr/app</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> rustup target add x86_64-unknown-linux-musl<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> apt update <span class="o">&amp;&amp;</span> apt install -y musl-tools musl-dev<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> update-ca-certificates<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /usr/app/api_gateway</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> adduser <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --disabled-password <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --gecos <span class="s2">&#34;&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --home <span class="s2">&#34;/nonexistent&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --shell <span class="s2">&#34;/sbin/nologin&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --no-create-home <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --uid <span class="m">10001</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    userland<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> ./Cargo.toml ./Cargo.toml<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> mkdir src <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&#34;fn main(){}&#34;</span> &gt; ./src/main.rs<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Build the dependencies. This is the longest part and we don´t want</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># to repeat it if there is no dependency change,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># which is why there is no copy or volume for sources at this point</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> cargo build --target x86_64-unknown-linux-musl --release<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> ./src ./src<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 5. Build for release.</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> cargo build --target x86_64-unknown-linux-musl --release<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c">## EXECUTOR</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="s"> alpine</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># You can include a healthcheck here, for demons and network-based services.</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># For http checks, don&#39;t forget curl is not readily available on alpine</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ &#34;curl --fail http://localhost:8000/health&#34; ]</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># RUN apk add curl</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> apk add libc6-compat<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /opt</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> --from<span class="o">=</span>builder /etc/passwd /etc/passwd<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> --from<span class="o">=</span>builder /etc/group /etc/group<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> --from<span class="o">=</span>builder /usr/app/my_app/target/x86_64-unknown-linux-musl/release/my_app ./<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> chown userland:userland ./my_app<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;/usr/app/my_app&#34;</span><span class="p">]</span><span class="err">
+</span></span></span></code></pre></div><p>Alpine doesn&rsquo;t natively provide glibc or libssl. For this reason, we will need some additions in the Cargo.toml file.</p>
+<p>At end of file, below your dependencies, add the following section:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[target.&#39;cfg(all(target_env = &#34;musl&#34;, target_pointer_width = &#34;64&#34;))&#39;.dependencies.jemallocator]</span>
+</span></span><span class="line"><span class="cl"><span class="na">version</span> <span class="o">=</span> <span class="s">&#34;0.3&#34;</span>
+</span></span></code></pre></div><p>You can learn more about what is jemalloc <a href="https://jemalloc.net/">here</a></p>
+<p>If you use things that are dependent of ssl, such as reqwest, you might also need to tweak the dependency to include <code>rust-tls</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">reqwest</span> <span class="o">=</span> <span class="s">{version = &#34;0.11&#34;, default-features = false, features = [&#34;json&#34;, &#34;rustls-tls&#34;] }</span>
+</span></span></code></pre></div><h2 id="running">Running</h2>
+<p>Try to <code>docker build</code> your image. If it is successful, try to <code>docker run</code> the obtained container. It should execute your binary.</p>
+<p>You notice your first <code>docker build</code> was probably long, several minutes long perhaps.</p>
+<p>Try to modify your sources, then <code>docker build</code> again. You should notice the build to be significantly faster.</p>
+<p>Use <code>docker images</code> and inspect image size. Smaller images are faster to push and pull over network, they also cost less to store.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>We learned to make a multi-stage build to produce small docker images for Rust, and use the best of docker caching to avoid a costy rebuild
+of dependencies at every source change.</p>
+<h2 id="thanks-to--further-reading">Thanks to / further reading</h2>
+<ul>
+<li><a href="https://docs.docker.com/build/building/multi-stage/">Multi stage build for docker</a></li>
+<li><a href="https://hackmd.io/@kobzol/S17NS71bh">Notes from cargo team on dependency caching</a></li>
+</ul>
+]]></content></item></channel></rss>
