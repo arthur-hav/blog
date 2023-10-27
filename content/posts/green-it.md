@@ -11,7 +11,7 @@ tags:
 # Some figures about carbon footprint
 
 - Electronic devices and other IT related activity represent 4% of the total global carbon footprint, a figure that is growing every year due to sector growth. 
-- If the proportion may look small, it actually is important regarding other industry sectors; automobile sector, known for its pollution side effects, in its whole is for example estimated weighting roughly 6 to 9% of GES. The entiere plane fleet is 2%.
+- If the proportion may look small, it actually is important regarding other industry sectors; automobile sector, known for its pollution side effects, in its whole is for example estimated weighting roughly 6 to 9% of global carbon emissions. The entiere plane fleet is 2%.
 - A computer (laptop or desktop) will during the course of its life emit a bit less than 100kg of CO2 eq. per year, cost which is between 70-90% manufacturing carbon footprint and the remaining in electricity costs. 
 - Among e-waste, monitors represent a significant volume. E-waste is difficult to recycle, and may under some circumstances become an environmental hazard.
 
