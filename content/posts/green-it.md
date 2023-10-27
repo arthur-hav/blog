@@ -37,7 +37,7 @@ Yet, this is a misconception I often have seen vehiculed by some corporations, e
 
 # Positively changing actions
 
-Over the last few years, there have been a massive schift in our usage of digital devices.
+Over the last few years, there have been a massive shift in our usage of digital devices.
 
 - We use videos a ton, for everything
 - We spend a lot more time gaming
