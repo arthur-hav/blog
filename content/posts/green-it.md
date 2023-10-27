@@ -17,7 +17,7 @@ tags:
 
 # Misconceptions around green IT
 
-## Latest model efficiency compensates for replamement
+## Latest model efficiency compensates for replacement
 
 This is trivially wrong based on the above facts. Even 10 years ago, e-devices were for most part energetically sober. However, their manufacturing and disposal are polluting processes. 
 Besides, unlike it could be the case for a car, having more efficiency at hand does not necessarily result in less consumption. If anything, more powerful model create new uses, creating more consumption.
