@@ -8,7 +8,7 @@ tags:
   - untagged
 ---
 
-# Some figures about carbon footprint
+# Some figures about IT and the environment
 
 - Electronic devices and other IT related activity represent 4% of the total global carbon footprint, a figure that is growing every year due to sector growth. 
 - If the proportion may look small, it actually is important regarding other industry sectors; automobile sector, known for its pollution side effects, in its whole is for example estimated weighting roughly 6 to 9% of global carbon emissions. The entiere plane fleet is 2%.
