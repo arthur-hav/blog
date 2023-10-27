@@ -24,15 +24,16 @@ Besides, unlike it could be the case for a car, having more efficiency at hand d
 
 ## Some programming languages are less green than others
 
-Some people pointed out because Python is several tenths times less efficient than C, it is thenth times less green than C.
-While not completely wrong, this is simplistic, because only measuring runtime power consumption. Programs written in Python could take less time to write, thus possibly compensating.
+Some people pointed out because Python is several dozen times less efficient than C, it is dozen times less green than C. While not completely wrong, this is simplistic.
+
+It's only measuring runtime power consumption. Programs written in Python could take less time to write, thus possibly compensating.
 Resources on server side are rarely optimised below a certain threshold, so if two programs take one same vps instance, they are polluting the same.
 Finally, providing services more efficiently power-wise might not decrease overall consuption for tech, if it drives price down it may in turn increase demand.
 
 ## We need to sober up on emails
 
-This is among all conceptions I heard one of the most strange one. SMTP traffic is perhaps 1% of the world's internet traffic. A mail is a few KB. A single video on yt will be thousands of times more costy.
-Yet, this is a misconception I often have seen vehiculed by some corporations, encouraging their employees to "green gestures" such as deleting their email. But that's a drop in the ocean
+This is among all conceptions I heard one of the most strange. SMTP traffic is perhaps 1% of the world's internet traffic. A mail is a few KB. A single video on yt will be thousands of times more costy.
+Yet, this is a misconception I often have seen vehiculed by some corporations, encouraging their employees to "green gestures" such as deleting their email. But that's misleading, as its not even a drop in the ocean
 
 # Positively changing actions
 
