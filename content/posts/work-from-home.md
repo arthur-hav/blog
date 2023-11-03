@@ -12,13 +12,14 @@ tags:
 
 Stack overflow study states in 2023 about 42% surveyed developers work in totally remote environment, 42% in hybrid, and 16% in fully in-office.
 
-Self-employed developers work remotely for 70% of them.
+Self-employed developers work remotely for 70% of them. 
 
-Different studies could conclude different numbers based on the interviewed population, based on inclusion of self-employment, of reaching methods; likely, SO numbers could be sightly upper-bound of workforce on the amount of remote jobs.
+It is made clear though, that remote job is strongly demanded for some developers. 
+They are 21% to declare outright quitting a job that would offer no remote option, while being an additional 49% to look for another more remote-friendly position.
+A survey on developers found out 80% say they want to work remotely at least 80% of the time (terminal.io).
 
-It is made clear though, that remote job is strongly demanded for some developers. They are 21% to declare outright quitting a job that would offer no remote option, while being an additional 49% to look for another more remote-friendly position.
-
-Reasons invoked include productivity and focus, saving stress, and saving time & money related no longer having to having to commute by car, while mentionned advantages to work in office include better communication, bonding, and better team efficiency.
+Reasons invoked include productivity and focus, saving stress, and saving time & money related no longer having to having to commute by car,
+while mentionned advantages to work in office include better communication, bonding, and better team efficiency.
 
 # Adapting to the employes
 
@@ -28,8 +29,8 @@ When it comes to organizing the same team of developers, the 3 work styles (in-o
 
 Very obviously, workers who prefer the office will be disapointed and eventually stop coming if the office is perpetually empty of some teammates. This usually leads some companies towards hybrid work, in order to satisfy a larger panel. 
 
-Unfortunately the compromise can be unsatisfying for both ends of the spectrum; poor coordination of in-office hours can result in too empty or too crowded offices, which can be painful office experiences. Additionally, some employees prefer 
-having a set daily routine rather than commuting to work sporadingly, for example in order to avoid transporting their equipment or forgetting part it somewhere during commute, might have problems around coordinating with others and so on.
+Unfortunately the compromise can be unsatisfying for both ends of the spectrum; poor coordination of in-office hours can result in too empty or too crowded offices, which can be painful office experiences. Hybrid work does not allow for distant hires. 
+Additionally, some employees prefer having a set daily routine rather than commuting to work sporadingly, for example in order to avoid transporting their equipment or forgetting part it somewhere during commute, and might have problems around coordinating with others.
 
 ## Ideal organization
 
@@ -63,8 +64,10 @@ They should also include working devices to make remote meetings such as meeting
 
 # Final notes
 
-Because the development work is such a focused activity, because it can be done remotely, because commuting and occupying offices is vastly wasteful, i believe any new company should reap benefits from a wfh company model in the current state of the market.
+Because the development work is such a focused activity, because it can be done remotely, because commuting and occupying offices is vastly wasteful, I believe any new company can reap strong benefits from a work from home company model in the current state of the market.
 
-While this require some knowledge of how these organizations can work fluently, I, as a developer, would refuse to commute to do what I could have been doing with the exact same efficiency being home.
+While this require some knowledge of how these organizations can work fluently, developers made clear they are a majority to refuse doing what they could have been doing with the exact same efficiency being home.
 
-Thankfully, while there is some benefits to in-person meeting and informal discussions, with clever planning, you don't really have to choose; with regular interval in-person meeting days, a manager can drive and empower their employees to ensure they will deliver the best when returning home.
+However, making progress towards remote could be detrimental to workers having poor work from home conditions (busy home, lack of dedicated space, loneliness...) and to the company communication and planning efficiency.
+
+Thankfully, while there is some benefits to in-person meeting and informal discussions, with clever planning, you can get most benefits of both worlds; with regular interval in-person meeting days, and offering to co-pay for coworking areas whenever needed, a manager can drive and empower their employees to ensure they will deliver their best in all circumstances.
