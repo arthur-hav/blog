@@ -16,7 +16,7 @@ Self-employed developers work remotely for 70% of them.
 
 It is made clear though, that remote job is strongly demanded for some developers. 
 They are 21% to declare outright quitting a job that would offer no remote option, while being an additional 49% to look for another more remote-friendly position.
-A survey on developers found out 80% say they want to work remotely at least 80% of the time (terminal.io).
+A survey on developers found out 80% say they want to work remotely at least 80% of the time (terminal.io), meaning about 40% of developers are dissatisfied with the remote policy of their company.
 
 Reasons invoked include productivity and focus, saving stress, and saving time & money related no longer having to having to commute by car,
 while mentionned advantages to work in office include better communication, bonding, and better team efficiency.
