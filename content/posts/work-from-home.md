@@ -28,9 +28,9 @@ while mentionned advantages to work in office include better communication, bond
 
 ## The problem with compromises
 
-When it comes to organizing the same team of developers, the 3 work styles (in-office, hybrid and fully remote) are challenging to coherently organize without proper organization.
+When it comes to organizing the same team of developers, the 3 work styles (in-office, hybrid and fully remote) are challenging to make coexist. 
 
-Very obviously, workers who prefer the office will be disapointed and eventually stop coming if the office is perpetually empty of some teammates. This usually leads some companies towards hybrid work, in order to satisfy a larger panel. 
+Jealousy may arise from differenciated treatment. Developers who prefer the office will be disapointed and eventually stop coming if the office is perpetually empty of some teammates. This usually leads some companies towards hybrid work, with imposed number of remote days, in order to satisfy a larger panel. 
 
 Unfortunately the compromise can be unsatisfying for both ends of the spectrum; poor coordination of in-office hours can result in too empty or too crowded offices, which can be painful office experiences. Hybrid work does not allow for distant hires. 
 Additionally, some employees prefer having a set daily routine rather than commuting to work sporadingly, for example in order to avoid transporting their equipment or forgetting part it somewhere during commute, and might have problems around coordinating with others.
