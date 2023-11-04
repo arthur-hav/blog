@@ -81,4 +81,4 @@ While this require some knowledge of how these organizations can work fluently, 
 
 However, making progress towards remote could be detrimental to workers having poor work from home conditions (busy home, lack of dedicated space, loneliness...) and to the company communication and planning efficiency.
 
-Thankfully, while there is some benefits to in-person meeting and informal discussions, with clever planning, you can get most benefits of both worlds; with regular interval in-person meeting days, and offering to co-pay for coworking areas whenever needed, a manager can drive and empower their employees to ensure they will deliver their best in all circumstances.
+Thankfully, with clever planning, you can get most benefits of both worlds; with regular interval in-person meeting days, and offering to co-pay for coworking areas whenever needed, a manager can drive and empower their employees to ensure they will deliver their best in all circumstances.
