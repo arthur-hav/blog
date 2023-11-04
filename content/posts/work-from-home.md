@@ -1,5 +1,5 @@
 ---
-title: "Work From Home"
+title: "Developers Work From Home"
 date: 2023-11-01T19:31:16+01:00
 draft: false
 toc: false
@@ -7,6 +7,9 @@ images:
 tags: 
   - untagged
 ---
+
+This blog post propose you a short tour on developers work from home data and a guide towards optimizing remote and in person workplaces. 
+After a short dive in data, I will present strength and challenges of every organization and conclude with recommendations.
 
 # Key data
 
@@ -32,7 +35,7 @@ Very obviously, workers who prefer the office will be disapointed and eventually
 Unfortunately the compromise can be unsatisfying for both ends of the spectrum; poor coordination of in-office hours can result in too empty or too crowded offices, which can be painful office experiences. Hybrid work does not allow for distant hires. 
 Additionally, some employees prefer having a set daily routine rather than commuting to work sporadingly, for example in order to avoid transporting their equipment or forgetting part it somewhere during commute, and might have problems around coordinating with others.
 
-## Ideal organization
+## Optimizing organization
 
 ### In office organization
 
@@ -40,6 +43,8 @@ An ideal in-office organization must offer comfortable position to work for all 
 - A central positionning regarding transportation of the team.
 - Sufficient space and separation to avoid lack of focus related to overhearing discussions.
 - Formal and informal discussion spaces away from the screen.
+
+In office organization will face a lot of recruitment problems however, both because they are area limited, and because developers who are willing to engage durably in them are few.
 
 
 ### Remote organization
@@ -62,7 +67,13 @@ Efficient organizations should include either a calendar to book the office, or 
 
 They should also include working devices to make remote meetings such as meeting rooms with included quality audio i/o devices.
 
-# Final notes
+# Choosing your model
+
+## Existing companies
+
+All existing companies having a given model will have difficulties switching to a different one, although it isn't impossible to. Usually, adapting to the market will mean including more remote. Existing companies might have to progressively transition to new model, adapting their processes, sometimes infrastructure, allowing more and more remote, until they ultimately get rid of their office. Some employees might oppose resistance. Some difficult choices can have to be made ! However, this can result in a more efficient organization, with access to a much larger pool of employees.
+
+## Why we believe in remote
 
 Because the development work is such a focused activity, because it can be done remotely, because commuting and occupying offices is vastly wasteful, I believe any new company can reap strong benefits from a work from home company model in the current state of the market.
 

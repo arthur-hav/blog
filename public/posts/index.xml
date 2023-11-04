@@ -1,6 +1,8 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Diane M's blog</title><link>https://princess-entrapta.github.io/blog/posts/</link><description>Recent content in Posts on Diane M's blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 01 Nov 2023 19:31:16 +0100</lastBuildDate><atom:link href="https://princess-entrapta.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Work From Home</title><link>https://princess-entrapta.github.io/blog/posts/work-from-home/</link><pubDate>Wed, 01 Nov 2023 19:31:16 +0100</pubDate><guid>https://princess-entrapta.github.io/blog/posts/work-from-home/</guid><description>Key data Stack overflow study states in 2023 about 42% surveyed developers work in totally remote environment, 42% in hybrid, and 16% in fully in-office.
-Self-employed developers work remotely for 70% of them.
-It is made clear though, that remote job is strongly demanded for some developers. They are 21% to declare outright quitting a job that would offer no remote option, while being an additional 49% to look for another more remote-friendly position.</description><content type="html"><![CDATA[<h1 id="key-data">Key data</h1>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Diane M's blog</title><link>https://princess-entrapta.github.io/blog/posts/</link><description>Recent content in Posts on Diane M's blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 01 Nov 2023 19:31:16 +0100</lastBuildDate><atom:link href="https://princess-entrapta.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Developers Work From Home</title><link>https://princess-entrapta.github.io/blog/posts/work-from-home/</link><pubDate>Wed, 01 Nov 2023 19:31:16 +0100</pubDate><guid>https://princess-entrapta.github.io/blog/posts/work-from-home/</guid><description>This blog post propose you a short tour on developers work from home data and a guide towards optimizing remote and in person workplaces. After a short dive in data, I will present strength and challenges of every organization and conclude with recommendations.
+Key data Stack overflow study states in 2023 about 42% surveyed developers work in totally remote environment, 42% in hybrid, and 16% in fully in-office.
+Self-employed developers work remotely for 70% of them.</description><content type="html"><![CDATA[<p>This blog post propose you a short tour on developers work from home data and a guide towards optimizing remote and in person workplaces.
+After a short dive in data, I will present strength and challenges of every organization and conclude with recommendations.</p>
+<h1 id="key-data">Key data</h1>
 <p>Stack overflow study states in 2023 about 42% surveyed developers work in totally remote environment, 42% in hybrid, and 16% in fully in-office.</p>
 <p>Self-employed developers work remotely for 70% of them.</p>
 <p>It is made clear though, that remote job is strongly demanded for some developers.
@@ -14,7 +16,7 @@ while mentionned advantages to work in office include better communication, bond
 <p>Very obviously, workers who prefer the office will be disapointed and eventually stop coming if the office is perpetually empty of some teammates. This usually leads some companies towards hybrid work, in order to satisfy a larger panel.</p>
 <p>Unfortunately the compromise can be unsatisfying for both ends of the spectrum; poor coordination of in-office hours can result in too empty or too crowded offices, which can be painful office experiences. Hybrid work does not allow for distant hires.
 Additionally, some employees prefer having a set daily routine rather than commuting to work sporadingly, for example in order to avoid transporting their equipment or forgetting part it somewhere during commute, and might have problems around coordinating with others.</p>
-<h2 id="ideal-organization">Ideal organization</h2>
+<h2 id="optimizing-organization">Optimizing organization</h2>
 <h3 id="in-office-organization">In office organization</h3>
 <p>An ideal in-office organization must offer comfortable position to work for all employees. Without too much surprise, this includes:</p>
 <ul>
@@ -22,6 +24,7 @@ Additionally, some employees prefer having a set daily routine rather than commu
 <li>Sufficient space and separation to avoid lack of focus related to overhearing discussions.</li>
 <li>Formal and informal discussion spaces away from the screen.</li>
 </ul>
+<p>In office organization will face a lot of recruitment problems however, both because they are area limited, and because developers who are willing to engage durably in them are few.</p>
 <h3 id="remote-organization">Remote organization</h3>
 <p>Remote organization is highly desirable for both employees and employers, because it allows broader area employment, it removes necessity of large offices, it removes necessity to commute, and cut down distractions; without any possible doubt, in terms of efficiency remote is king.</p>
 <p>However, full remote is not suited to all, and transitionning to it is difficult for employers who would prefer keeping key employees who might have unfriendly home environment.</p>
@@ -32,7 +35,10 @@ Additionally, some employees prefer having a set daily routine rather than commu
 This can be wasteful and unsatisfying for previously mentionned reasons. However, things can be made easier by cherry-picking ideas of both in office and remote organization.</p>
 <p>Efficient organizations should include either a calendar to book the office, or an office large enough for everyone to come at the same time.</p>
 <p>They should also include working devices to make remote meetings such as meeting rooms with included quality audio i/o devices.</p>
-<h1 id="final-notes">Final notes</h1>
+<h1 id="choosing-your-model">Choosing your model</h1>
+<h2 id="existing-companies">Existing companies</h2>
+<p>All existing companies having a given model will have difficulties switching to a different one, although it isn&rsquo;t impossible to. Usually, adapting to the market will mean including more remote. Existing companies might have to progressively transition to new model, adapting their processes, sometimes infrastructure, allowing more and more remote, until they ultimately get rid of their office. Some employees might oppose resistance. Some difficult choices can have to be made ! However, this can result in a more efficient organization, with access to a much larger pool of employees.</p>
+<h2 id="why-we-believe-in-remote">Why we believe in remote</h2>
 <p>Because the development work is such a focused activity, because it can be done remotely, because commuting and occupying offices is vastly wasteful, I believe any new company can reap strong benefits from a work from home company model in the current state of the market.</p>
 <p>While this require some knowledge of how these organizations can work fluently, developers made clear they are a majority to refuse doing what they could have been doing with the exact same efficiency being home.</p>
 <p>However, making progress towards remote could be detrimental to workers having poor work from home conditions (busy home, lack of dedicated space, loneliness&hellip;) and to the company communication and planning efficiency.</p>
