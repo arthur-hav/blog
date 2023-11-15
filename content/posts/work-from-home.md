@@ -80,6 +80,6 @@ Work from home and in office don't have to win one over another. Both offers pro
 
 However, as a decider one can reap stronger benefits from a work from home company model in the current state of the market.
 
-While this require some knowledge of how these organizations can work fluently, we however saw how clever management can partly offset this problems.
+While this require some knowledge of how these organizations can work fluently, we however saw how clever management can partly offset these problems.
 
 As a remote enthusiast, I cannot wait to see more company daring to embrace this model, as it is, to my own standpoint, a great opportunity both for businesses and employees.
