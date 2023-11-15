@@ -30,9 +30,7 @@ while mentionned advantages to work in office include better communication, bond
 
 ## Choosing a model
 
-When it comes to organizing the same team of developers, the 3 work styles (in-office, hybrid and fully remote) are challenging to make coexist. 
-
-We will discuss here what are the main organization rules that can be provided for a given developer team.
+When it comes to organizing the same team of developers, the 3 work styles (in-office, hybrid and fully remote) are challenging to make coexist. Based on the company choice, it will face different challenges.
 
 ## Challenges and optimization
 
