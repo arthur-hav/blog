@@ -34,23 +34,23 @@ When it comes to organizing the same team of developers, the 3 work styles (in-o
 
 ## Challenges and optimization
 
-There is several challenges to make a comfortable work environment:
-- Providing reasonable commute time, as this is uncompensated unavailability
-- Quality communication
-- Comfortable space and quiet
-- Lack of distraction
+To make a comfortable work environment, any organization should:
+- Providing reasonable commute time
+- Enable means of quality communication
+- Offer comfortable space and quiet
+- Lack distractions
 
 These can be challenging to provide for both remote and in office organisation, for different reasons.
 
 ### In office organization
 
-To offset workplace challenges, this is an example of things to implement in an in-office organization:
+In office organization will face a lot of recruitment challenges. Their recruitment area is more limited, and developers who are willing to engage durably in them are fewer.
+
+However, they can work on their retention by providing to employees a high level of working confort. This includes, for people who would be inclined to prefer remote:
+
 - A central positionning regarding transportation of the team.
 - Sufficient space and separation to avoid lack of focus related to overhearing discussions.
 - Formal and informal discussion spaces away from the screen.
-
-In office organization will face a lot of recruitment challenges however. Their recruitment area is more limited, and developers who are willing to engage durably in them are fewer.
-
 
 ### Remote organization
 
@@ -71,7 +71,7 @@ A hybrid workplace will be variably occupied, and both formal and informal meeti
 
 While this compromise can be tempting, it is important to care that employees can variably adapt to this organization, as they would need to transit with their equipment frequently, and might poorly coordinate their office days with the people they wanted to meet in person.
 
-Efficient organizations should include either a calendar to book the office, or an office large enough for everyone to come at the same time.
+Efficient organizations can include either a calendar to book the office, or an office large enough for everyone to come at the same time.
 
 They should also include working devices to make remote meetings such as meeting rooms with included quality audio i/o devices.
 
