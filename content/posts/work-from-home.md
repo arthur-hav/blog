@@ -36,6 +36,7 @@ When it comes to organizing the same team of developers, the 3 work styles (in-o
 
 There is several challenges to make a comfortable work environment:
 - Providing reasonable commute time, as this is uncompensated unavailability
+- Quality communication
 - Comfortable space and quiet
 - Lack of distraction
 
