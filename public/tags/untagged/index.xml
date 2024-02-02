@@ -7,7 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Wed, 01 Nov 2023 19:31:16 +0100</lastBuildDate><atom:link href="https://example.com/tags/untagged/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 02 Feb 2024 07:29:33 +0100</lastBuildDate><atom:link href="https://example.com/tags/untagged/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Feature Production</title>
+      <link>https://example.com/posts/feature-production/</link>
+      <pubDate>Fri, 02 Feb 2024 07:29:33 +0100</pubDate>
+      
+      <guid>https://example.com/posts/feature-production/</guid>
+      <description>My engineers output is slower than ever There is a catch that is never really explained in agile methodology, and is inherent to any software development lifecycle.
+It is always slowing down, one day or another, and significantly so.
+Your velocity will crash. Either your estimates will inflate, or the velocity will drop. Less and less features get out.
+We will cover here what is that phenomenon about and how to act upon it.</description>
+    </item>
+    
     <item>
       <title>Developers Work From Home</title>
       <link>https://example.com/posts/work-from-home/</link>
