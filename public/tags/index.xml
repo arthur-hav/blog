@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Diane M&#39;s blog</title>
-    <link>https://example.com/tags/</link>
+    <link>https://princess-entrapta.github.io/blog/posts/tags/</link>
     <description>Recent content in Tags on Diane M&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Fri, 02 Feb 2024 07:29:33 +0100</lastBuildDate><atom:link href="https://example.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 02 Feb 2024 07:29:33 +0100</lastBuildDate><atom:link href="https://princess-entrapta.github.io/blog/posts/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>untagged</title>
-      <link>https://example.com/tags/untagged/</link>
+      <link>https://princess-entrapta.github.io/blog/posts/tags/untagged/</link>
       <pubDate>Fri, 02 Feb 2024 07:29:33 +0100</pubDate>
       
-      <guid>https://example.com/tags/untagged/</guid>
+      <guid>https://princess-entrapta.github.io/blog/posts/tags/untagged/</guid>
       <description></description>
     </item>
     
