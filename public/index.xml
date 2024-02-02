@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Diane M&#39;s blog</title>
-    <link>https://princess-entrapta.github.io/blog/posts/</link>
+    <link>https://princess-entrapta.github.io/blog/</link>
     <description>Recent content on Diane M&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Fri, 02 Feb 2024 07:29:33 +0100</lastBuildDate><atom:link href="https://princess-entrapta.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 02 Feb 2024 07:29:33 +0100</lastBuildDate><atom:link href="https://princess-entrapta.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Feature Production</title>
-      <link>https://princess-entrapta.github.io/blog/posts/posts/feature-production/</link>
+      <link>https://princess-entrapta.github.io/blog/posts/feature-production/</link>
       <pubDate>Fri, 02 Feb 2024 07:29:33 +0100</pubDate>
       
-      <guid>https://princess-entrapta.github.io/blog/posts/posts/feature-production/</guid>
+      <guid>https://princess-entrapta.github.io/blog/posts/feature-production/</guid>
       <description>My engineers output is slower than ever There is a catch that is never really explained in agile methodology, and is inherent to any software development lifecycle.
 It is always slowing down, one day or another, and significantly so.
 Your velocity will crash. Either your estimates will inflate, or the velocity will drop. Less and less features get out.
@@ -22,10 +22,10 @@ We will cover here what is that phenomenon about and how to act upon it.</descri
     
     <item>
       <title>Developers Work From Home</title>
-      <link>https://princess-entrapta.github.io/blog/posts/posts/work-from-home/</link>
+      <link>https://princess-entrapta.github.io/blog/posts/work-from-home/</link>
       <pubDate>Wed, 01 Nov 2023 19:31:16 +0100</pubDate>
       
-      <guid>https://princess-entrapta.github.io/blog/posts/posts/work-from-home/</guid>
+      <guid>https://princess-entrapta.github.io/blog/posts/work-from-home/</guid>
       <description>After presenting developers work from home data, I will present key opportunity and challenges that arise from it. I will then conclude with personal opinion and recommendation regarding work for home for developers.
 Key data Stack overflow 2023 developer survey disclosed that:
 42% respondants developers work in totally remote environment 42% in hybrid environment, mixing in office and remote work 16% in fully in-office. Self-employed developers work remotely for 70% of them.</description>
@@ -33,19 +33,19 @@ Key data Stack overflow 2023 developer survey disclosed that:
     
     <item>
       <title>Green It</title>
-      <link>https://princess-entrapta.github.io/blog/posts/posts/green-it/</link>
+      <link>https://princess-entrapta.github.io/blog/posts/green-it/</link>
       <pubDate>Fri, 27 Oct 2023 18:53:49 +0200</pubDate>
       
-      <guid>https://princess-entrapta.github.io/blog/posts/posts/green-it/</guid>
+      <guid>https://princess-entrapta.github.io/blog/posts/green-it/</guid>
       <description>Some figures about IT and the environment Electronic devices and other IT related activity represent 4% of the total global carbon footprint, a figure that is growing every year due to sector growth. If the proportion may look small, it actually is important regarding other industry sectors; automobile sector, known for its pollution side effects, in its whole is for example estimated weighting roughly 6 to 9% of global carbon emissions.</description>
     </item>
     
     <item>
       <title>Dockerfile for small Rust images (with dependency build caching)</title>
-      <link>https://princess-entrapta.github.io/blog/posts/posts/build-rust-dockerfile/</link>
+      <link>https://princess-entrapta.github.io/blog/posts/build-rust-dockerfile/</link>
       <pubDate>Wed, 25 Oct 2023 12:56:00 +0200</pubDate>
       
-      <guid>https://princess-entrapta.github.io/blog/posts/posts/build-rust-dockerfile/</guid>
+      <guid>https://princess-entrapta.github.io/blog/posts/build-rust-dockerfile/</guid>
       <description>Introduction After reading multiple tutorials for building docker images and optimize them, I compiled an optimized Dockerfile that can:
 Have final images that are small, in the 50MB range Benefit from docker caching, allowing to have build times under 10s if you don&amp;rsquo;t change dependencies We will assume here you start with a project my_app you already have or have created with cargo new.
 Setting up We use this docker file.</description>
@@ -53,10 +53,10 @@ Setting up We use this docker file.</description>
     
     <item>
       <title>About Me</title>
-      <link>https://princess-entrapta.github.io/blog/posts/about-me/</link>
+      <link>https://princess-entrapta.github.io/blog/about-me/</link>
       <pubDate>Wed, 25 Oct 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://princess-entrapta.github.io/blog/posts/about-me/</guid>
+      <guid>https://princess-entrapta.github.io/blog/about-me/</guid>
       <description>Coming soon</description>
     </item>
     
