@@ -1,58 +1,188 @@
-<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=x-ua-compatible content="ie=edge"><meta name=theme-color content="#494f5c"><meta name=msapplication-TileColor content="#494f5c"><meta itemprop=name content="Dockerfile for small Rust images (with dependency build caching)"><meta itemprop=description content="Introduction After reading multiple tutorials for building docker images and optimize them, I compiled an optimized Dockerfile that can:
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+<meta itemprop="name" content="Dockerfile for small Rust images (with dependency build caching)">
+<meta itemprop="description" content="Introduction After reading multiple tutorials for building docker images and optimize them, I compiled an optimized Dockerfile that can:
 Have final images that are small, in the 50MB range Benefit from docker caching, allowing to have build times under 10s if you don&rsquo;t change dependencies We will assume here you start with a project my_app you already have or have created with cargo new.
-Setting up We use this docker file."><meta itemprop=datePublished content="2023-10-25T12:56:00+02:00"><meta itemprop=dateModified content="2023-10-25T12:56:00+02:00"><meta itemprop=wordCount content="527"><meta itemprop=keywords content><meta property="og:title" content="Dockerfile for small Rust images (with dependency build caching)"><meta property="og:description" content="Introduction After reading multiple tutorials for building docker images and optimize them, I compiled an optimized Dockerfile that can:
+Setting up We use this docker file."><meta itemprop="datePublished" content="2023-10-25T12:56:00+02:00" />
+<meta itemprop="dateModified" content="2023-10-25T12:56:00+02:00" />
+<meta itemprop="wordCount" content="527">
+<meta itemprop="keywords" content="" /><meta property="og:title" content="Dockerfile for small Rust images (with dependency build caching)" />
+<meta property="og:description" content="Introduction After reading multiple tutorials for building docker images and optimize them, I compiled an optimized Dockerfile that can:
 Have final images that are small, in the 50MB range Benefit from docker caching, allowing to have build times under 10s if you don&rsquo;t change dependencies We will assume here you start with a project my_app you already have or have created with cargo new.
-Setting up We use this docker file."><meta property="og:type" content="article"><meta property="og:url" content="https://princess-entrapta.github.io/blog/posts/build-rust-dockerfile/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2023-10-25T12:56:00+02:00"><meta property="article:modified_time" content="2023-10-25T12:56:00+02:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="Dockerfile for small Rust images (with dependency build caching)"><meta name=twitter:description content="Introduction After reading multiple tutorials for building docker images and optimize them, I compiled an optimized Dockerfile that can:
+Setting up We use this docker file." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/posts/build-rust-dockerfile/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-10-25T12:56:00+02:00" />
+<meta property="article:modified_time" content="2023-10-25T12:56:00+02:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Dockerfile for small Rust images (with dependency build caching)"/>
+<meta name="twitter:description" content="Introduction After reading multiple tutorials for building docker images and optimize them, I compiled an optimized Dockerfile that can:
 Have final images that are small, in the 50MB range Benefit from docker caching, allowing to have build times under 10s if you don&rsquo;t change dependencies We will assume here you start with a project my_app you already have or have created with cargo new.
-Setting up We use this docker file."><link rel=apple-touch-icon sizes=180x180 href=/blog/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/blog/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/blog/favicon-16x16.png><link rel=manifest href=/blog/site.webmanifest><link rel=mask-icon href=/blog/safari-pinned-tab.svg color><link rel="shortcut icon" href=/blog/favicon.ico><title>Dockerfile for small Rust images (with dependency build caching)</title><link rel=stylesheet href=https://princess-entrapta.github.io/blog/css/style.min.037b6ee8f8c1baab6a3d0a9da11c3ff18a7552471f16c59fd98538d5ce99208b.css integrity="sha256-A3tu6PjBuqtqPQqdoRw/8Yp1UkcfFsWf2YU41c6ZIIs=" crossorigin=anonymous></head><body id=page><header id=site-header class="animated slideInUp"><div class="hdr-wrapper section-inner"><div class=hdr-left><div class=site-branding><a href=https://princess-entrapta.github.io/blog>Diane M's blog</a></div><nav class="site-nav hide-in-mobile"><a href=https://princess-entrapta.github.io/blog/posts/>Posts</a>
-<a href=https://princess-entrapta.github.io/blog/about-hugo/>About</a></nav></div><div class="hdr-right hdr-icons"><span class="hdr-social hide-in-mobile"><a href=https://github.com/princess-entrapta target=_blank rel="noopener me" title=Github><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37.0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44.0 0020 4.77 5.07 5.07.0 0019.91 1S18.73.65 16 2.48a13.38 13.38.0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07.0 005 4.77 5.44 5.44.0 003.5 8.55c0 5.42 3.3 6.61 6.44 7A3.37 3.37.0 009 18.13V22"/></svg></a></span><button id=menu-btn class=hdr-btn title=Menu><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button></div></div></header><div id=mobile-menu class="animated fast"><ul><li><a href=https://princess-entrapta.github.io/blog/posts/>Posts</a></li><li><a href=https://princess-entrapta.github.io/blog/about-hugo/>About</a></li></ul></div><main class="site-main section-inner animated fadeIn faster"><article class=thin><header class=post-header><div class=post-meta><span>Oct 25, 2023</span></div><h1>Dockerfile for small Rust images (with dependency build caching)</h1></header><div class=content><h1 id=introduction>Introduction<a href=#introduction class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h1><p>After reading multiple tutorials for building docker images and optimize them, I compiled an optimized Dockerfile that can:</p><ul><li>Have final images that are small, in the 50MB range</li><li>Benefit from docker caching, allowing to have build times under 10s if you don&rsquo;t change dependencies</li></ul><p>We will assume here you start with a project <code>my_app</code> you already have or have created with <code>cargo new</code>.</p><h1 id=setting-up>Setting up<a href=#setting-up class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h1><p>We use this docker file. This technique is called a multi-stage build. When docker builds with <code>docker build</code> or <code>docker compose build</code>, it creates two successive images:</p><ul><li>One that serve to create the binary</li><li>One that will execute the binary without the build environment</li></ul><p>The second one can be minimized by removing unecessary system components that are already bundled in the produced binary.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-Dockerfile data-lang=Dockerfile><span class=line><span class=cl><span class=c>## BUILDER IMAGE</span><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>FROM</span><span class=s> rust:1.73 as builder</span><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>WORKDIR</span><span class=s> /usr/app</span><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>RUN</span> rustup target add x86_64-unknown-linux-musl<span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>RUN</span> apt update <span class=o>&amp;&amp;</span> apt install -y musl-tools musl-dev<span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>RUN</span> update-ca-certificates<span class=err>
-</span></span></span><span class=line><span class=cl><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>WORKDIR</span><span class=s> /usr/app/api_gateway</span><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>RUN</span> adduser <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>    --disabled-password <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>    --gecos <span class=s2>&#34;&#34;</span> <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>    --home <span class=s2>&#34;/nonexistent&#34;</span> <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>    --shell <span class=s2>&#34;/sbin/nologin&#34;</span> <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>    --no-create-home <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>    --uid <span class=m>10001</span> <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>    userland<span class=err>
-</span></span></span><span class=line><span class=cl><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>COPY</span> ./Cargo.toml ./Cargo.toml<span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>RUN</span> mkdir src <span class=o>&amp;&amp;</span> <span class=nb>echo</span> <span class=s2>&#34;fn main(){}&#34;</span> &gt; ./src/main.rs<span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=c># Build the dependencies. This is the longest part and we don´t want</span><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=c># to repeat it if there is no dependency change,</span><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=c># which is why there is no copy or volume for sources at this point</span><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>RUN</span> cargo build --target x86_64-unknown-linux-musl --release<span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>COPY</span> ./src ./src<span class=err>
-</span></span></span><span class=line><span class=cl><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=c># 5. Build for release.</span><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>RUN</span> cargo build --target x86_64-unknown-linux-musl --release<span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=c>## EXECUTOR</span><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>FROM</span><span class=s> alpine</span><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=c># You can include a healthcheck here, for demons and network-based services.</span><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=c># For http checks, don&#39;t forget curl is not readily available on alpine</span><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=c># HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ &#34;curl --fail http://localhost:8000/health&#34; ]</span><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=c># RUN apk add curl</span><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>RUN</span> apk add libc6-compat<span class=err>
-</span></span></span><span class=line><span class=cl><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>WORKDIR</span><span class=s> /opt</span><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>COPY</span> --from<span class=o>=</span>builder /etc/passwd /etc/passwd<span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>COPY</span> --from<span class=o>=</span>builder /etc/group /etc/group<span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>COPY</span> --from<span class=o>=</span>builder /usr/app/my_app/target/x86_64-unknown-linux-musl/release/my_app ./<span class=err>
-</span></span></span><span class=line><span class=cl><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>RUN</span> chown userland:userland ./my_app<span class=err>
-</span></span></span><span class=line><span class=cl><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>CMD</span> <span class=p>[</span><span class=s2>&#34;/usr/app/my_app&#34;</span><span class=p>]</span><span class=err>
-</span></span></span></code></pre></div><p>Alpine doesn&rsquo;t natively provide glibc or libssl. For this reason, we will need some additions in the Cargo.toml file.</p><p>At end of file, below your dependencies, add the following section:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ini data-lang=ini><span class=line><span class=cl><span class=k>[target.&#39;cfg(all(target_env = &#34;musl&#34;, target_pointer_width = &#34;64&#34;))&#39;.dependencies.jemallocator]</span>
-</span></span><span class=line><span class=cl><span class=na>version</span> <span class=o>=</span> <span class=s>&#34;0.3&#34;</span>
-</span></span></code></pre></div><p>You can learn more about what is jemalloc <a href=https://jemalloc.net/>here</a></p><p>If you use things that are dependent of ssl, such as reqwest, you might also need to tweak the dependency to include <code>rust-tls</code>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ini data-lang=ini><span class=line><span class=cl><span class=na>reqwest</span> <span class=o>=</span> <span class=s>{version = &#34;0.11&#34;, default-features = false, features = [&#34;json&#34;, &#34;rustls-tls&#34;] }</span>
-</span></span></code></pre></div><h2 id=running>Running<a href=#running class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h2><p>Try to <code>docker build</code> your image. If it is successful, try to <code>docker run</code> the obtained container. It should execute your binary.</p><p>You notice your first <code>docker build</code> was probably long, several minutes long perhaps.</p><p>Try to modify your sources, then <code>docker build</code> again. You should notice the build to be significantly faster.</p><p>Use <code>docker images</code> and inspect image size. Smaller images are faster to push and pull over network, they also cost less to store.</p><h1 id=conclusion>Conclusion<a href=#conclusion class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h1><p>We learned to make a multi-stage build to produce small docker images for Rust, and use the best of docker caching to avoid a costy rebuild
-of dependencies at every source change.</p><h2 id=thanks-to--further-reading>Thanks to / further reading<a href=#thanks-to--further-reading class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h2><ul><li><a href=https://docs.docker.com/build/building/multi-stage/>Multi stage build for docker</a></li><li><a href=https://hackmd.io/@kobzol/S17NS71bh>Notes from cargo team on dependency caching</a></li></ul></div><hr class=post-end><footer class=post-info><p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6A2 2 0 004 4v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>527 Words</p><p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2023-10-25 12:56 +0200</p></footer></article><div class="post-nav thin"><a class=next-post href=https://princess-entrapta.github.io/blog/posts/green-it/><span class=post-nav-label><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>&nbsp;Newer</span><br><span>Green It</span></a></div><div id=comments class=thin></div></main><footer id=site-footer class="section-inner thin animated fadeIn faster"><p>&copy; 2023 <a href=https://princess-entrapta.github.io/blog>Diane M.</a> &#183; <a href=https://creativecommons.org/publicdomain/zero/1.0/ target=_blank rel=noopener>CC0 License</a></p><p>Made with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> &#183; Theme <a href=https://github.com/Track3/hermit target=_blank rel=noopener>Hermit</a> &#183; <a href=https://princess-entrapta.github.io/blog/posts/index.xml target=_blank title=rss><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 019 9"/><path d="M4 4a16 16 0 0116 16"/><circle cx="5" cy="19" r="1"/></svg></a></p></footer><script src=https://princess-entrapta.github.io/blog/js/bundle.min.580988ed2982bcbb74a1773c7abea97b43e4c43b9324e10cda0813ec6ec4bb67.js integrity="sha256-WAmI7SmCvLt0oXc8er6pe0PkxDuTJOEM2ggT7G7Eu2c=" crossorigin=anonymous></script></body></html>
+Setting up We use this docker file."/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>Dockerfile for small Rust images (with dependency build caching)</title>
+	<link rel="stylesheet" href="https://example.com/css/style.min.037b6ee8f8c1baab6a3d0a9da11c3ff18a7552471f16c59fd98538d5ce99208b.css" integrity="sha256-A3tu6PjBuqtqPQqdoRw/8Yp1UkcfFsWf2YU41c6ZIIs=" crossorigin="anonymous">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://example.com">Diane M&#39;s blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://example.com/posts/">Posts</a>
+				<a href="https://example.com/about-hugo/">About</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<span class="hdr-social hide-in-mobile"><a href="https://github.com/princess-entrapta" target="_blank" rel="noopener me" title="Github"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></span><button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://example.com/posts/">Posts</a></li>
+			<li><a href="https://example.com/about-hugo/">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Oct 25, 2023</span></div>
+				<h1>Dockerfile for small Rust images (with dependency build caching)</h1>
+			</header>
+			<div class="content">
+				<h1 id="introduction">Introduction<a href="#introduction" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h1>
+<p>After reading multiple tutorials for building docker images and optimize them, I compiled an optimized Dockerfile that can:</p>
+<ul>
+<li>Have final images that are small, in the 50MB range</li>
+<li>Benefit from docker caching, allowing to have build times under 10s if you don&rsquo;t change dependencies</li>
+</ul>
+<p>We will assume here you start with a project <code>my_app</code> you already have or have created with <code>cargo new</code>.</p>
+<h1 id="setting-up">Setting up<a href="#setting-up" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h1>
+<p>We use this docker file. This technique is called a multi-stage build. When docker builds with <code>docker build</code> or <code>docker compose build</code>, it creates two successive images:</p>
+<ul>
+<li>One that serve to create the binary</li>
+<li>One that will execute the binary without the build environment</li>
+</ul>
+<p>The second one can be minimized by removing unecessary system components that are already bundled in the produced binary.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="c">## BUILDER IMAGE</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="s"> rust:1.73 as builder</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /usr/app</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> rustup target add x86_64-unknown-linux-musl<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> apt update <span class="o">&amp;&amp;</span> apt install -y musl-tools musl-dev<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> update-ca-certificates<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /usr/app/api_gateway</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> adduser <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --disabled-password <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --gecos <span class="s2">&#34;&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --home <span class="s2">&#34;/nonexistent&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --shell <span class="s2">&#34;/sbin/nologin&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --no-create-home <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --uid <span class="m">10001</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    userland<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> ./Cargo.toml ./Cargo.toml<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> mkdir src <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&#34;fn main(){}&#34;</span> &gt; ./src/main.rs<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Build the dependencies. This is the longest part and we don´t want</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># to repeat it if there is no dependency change,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># which is why there is no copy or volume for sources at this point</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> cargo build --target x86_64-unknown-linux-musl --release<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> ./src ./src<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 5. Build for release.</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> cargo build --target x86_64-unknown-linux-musl --release<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c">## EXECUTOR</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="s"> alpine</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># You can include a healthcheck here, for demons and network-based services.</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># For http checks, don&#39;t forget curl is not readily available on alpine</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ &#34;curl --fail http://localhost:8000/health&#34; ]</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># RUN apk add curl</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> apk add libc6-compat<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /opt</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> --from<span class="o">=</span>builder /etc/passwd /etc/passwd<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> --from<span class="o">=</span>builder /etc/group /etc/group<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> --from<span class="o">=</span>builder /usr/app/my_app/target/x86_64-unknown-linux-musl/release/my_app ./<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> chown userland:userland ./my_app<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;/usr/app/my_app&#34;</span><span class="p">]</span><span class="err">
+</span></span></span></code></pre></div><p>Alpine doesn&rsquo;t natively provide glibc or libssl. For this reason, we will need some additions in the Cargo.toml file.</p>
+<p>At end of file, below your dependencies, add the following section:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[target.&#39;cfg(all(target_env = &#34;musl&#34;, target_pointer_width = &#34;64&#34;))&#39;.dependencies.jemallocator]</span>
+</span></span><span class="line"><span class="cl"><span class="na">version</span> <span class="o">=</span> <span class="s">&#34;0.3&#34;</span>
+</span></span></code></pre></div><p>You can learn more about what is jemalloc <a href="https://jemalloc.net/">here</a></p>
+<p>If you use things that are dependent of ssl, such as reqwest, you might also need to tweak the dependency to include <code>rust-tls</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">reqwest</span> <span class="o">=</span> <span class="s">{version = &#34;0.11&#34;, default-features = false, features = [&#34;json&#34;, &#34;rustls-tls&#34;] }</span>
+</span></span></code></pre></div><h2 id="running">Running<a href="#running" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<p>Try to <code>docker build</code> your image. If it is successful, try to <code>docker run</code> the obtained container. It should execute your binary.</p>
+<p>You notice your first <code>docker build</code> was probably long, several minutes long perhaps.</p>
+<p>Try to modify your sources, then <code>docker build</code> again. You should notice the build to be significantly faster.</p>
+<p>Use <code>docker images</code> and inspect image size. Smaller images are faster to push and pull over network, they also cost less to store.</p>
+<h1 id="conclusion">Conclusion<a href="#conclusion" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h1>
+<p>We learned to make a multi-stage build to produce small docker images for Rust, and use the best of docker caching to avoid a costy rebuild
+of dependencies at every source change.</p>
+<h2 id="thanks-to--further-reading">Thanks to / further reading<a href="#thanks-to--further-reading" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<ul>
+<li><a href="https://docs.docker.com/build/building/multi-stage/">Multi stage build for docker</a></li>
+<li><a href="https://hackmd.io/@kobzol/S17NS71bh">Notes from cargo team on dependency caching</a></li>
+</ul>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>527 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2023-10-25 12:56 &#43;0200</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="next-post" href="https://example.com/posts/green-it/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>Green It</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2024 <a href="https://example.com">Diane M.</a> &#183; <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener">CC0 License</a></p>
+		<p>
+			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://example.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+		</p>
+	</footer>
+
+
+
+	<script src="https://example.com/js/bundle.min.580988ed2982bcbb74a1773c7abea97b43e4c43b9324e10cda0813ec6ec4bb67.js" integrity="sha256-WAmI7SmCvLt0oXc8er6pe0PkxDuTJOEM2ggT7G7Eu2c=" crossorigin="anonymous"></script>
+	
+
+</body>
+
+</html>
