@@ -1,3 +1,32 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>untagged on Diane M's blog</title><link>https://princess-entrapta.github.io/blog/tags/untagged/</link><description>Recent content in untagged on Diane M's blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 01 Nov 2023 19:31:16 +0100</lastBuildDate><atom:link href="https://princess-entrapta.github.io/blog/tags/untagged/index.xml" rel="self" type="application/rss+xml"/><item><title>Developers Work From Home</title><link>https://princess-entrapta.github.io/blog/posts/work-from-home/</link><pubDate>Wed, 01 Nov 2023 19:31:16 +0100</pubDate><guid>https://princess-entrapta.github.io/blog/posts/work-from-home/</guid><description>After presenting developers work from home data, I will present key opportunity and challenges that arise from it. I will then conclude with personal opinion and recommendation regarding work for home for developers.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>untagged on Diane M&#39;s blog</title>
+    <link>https://example.com/tags/untagged/</link>
+    <description>Recent content in untagged on Diane M&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Wed, 01 Nov 2023 19:31:16 +0100</lastBuildDate><atom:link href="https://example.com/tags/untagged/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Developers Work From Home</title>
+      <link>https://example.com/posts/work-from-home/</link>
+      <pubDate>Wed, 01 Nov 2023 19:31:16 +0100</pubDate>
+      
+      <guid>https://example.com/posts/work-from-home/</guid>
+      <description>After presenting developers work from home data, I will present key opportunity and challenges that arise from it. I will then conclude with personal opinion and recommendation regarding work for home for developers.
 Key data Stack overflow 2023 developer survey disclosed that:
-42% respondants developers work in totally remote environment 42% in hybrid environment, mixing in office and remote work 16% in fully in-office. Self-employed developers work remotely for 70% of them.</description></item><item><title>Green It</title><link>https://princess-entrapta.github.io/blog/posts/green-it/</link><pubDate>Fri, 27 Oct 2023 18:53:49 +0200</pubDate><guid>https://princess-entrapta.github.io/blog/posts/green-it/</guid><description>Some figures about IT and the environment Electronic devices and other IT related activity represent 4% of the total global carbon footprint, a figure that is growing every year due to sector growth. If the proportion may look small, it actually is important regarding other industry sectors; automobile sector, known for its pollution side effects, in its whole is for example estimated weighting roughly 6 to 9% of global carbon emissions.</description></item></channel></rss>
+42% respondants developers work in totally remote environment 42% in hybrid environment, mixing in office and remote work 16% in fully in-office. Self-employed developers work remotely for 70% of them.</description>
+    </item>
+    
+    <item>
+      <title>Green It</title>
+      <link>https://example.com/posts/green-it/</link>
+      <pubDate>Fri, 27 Oct 2023 18:53:49 +0200</pubDate>
+      
+      <guid>https://example.com/posts/green-it/</guid>
+      <description>Some figures about IT and the environment Electronic devices and other IT related activity represent 4% of the total global carbon footprint, a figure that is growing every year due to sector growth. If the proportion may look small, it actually is important regarding other industry sectors; automobile sector, known for its pollution side effects, in its whole is for example estimated weighting roughly 6 to 9% of global carbon emissions.</description>
+    </item>
+    
+  </channel>
+</rss>

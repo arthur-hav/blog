@@ -1,172 +1,43 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Diane M's blog</title><link>https://princess-entrapta.github.io/blog/posts/</link><description>Recent content in Posts on Diane M's blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 01 Nov 2023 19:31:16 +0100</lastBuildDate><atom:link href="https://princess-entrapta.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Developers Work From Home</title><link>https://princess-entrapta.github.io/blog/posts/work-from-home/</link><pubDate>Wed, 01 Nov 2023 19:31:16 +0100</pubDate><guid>https://princess-entrapta.github.io/blog/posts/work-from-home/</guid><description>After presenting developers work from home data, I will present key opportunity and challenges that arise from it. I will then conclude with personal opinion and recommendation regarding work for home for developers.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Diane M&#39;s blog</title>
+    <link>https://example.com/posts/</link>
+    <description>Recent content in Posts on Diane M&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Wed, 01 Nov 2023 19:31:16 +0100</lastBuildDate><atom:link href="https://example.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Developers Work From Home</title>
+      <link>https://example.com/posts/work-from-home/</link>
+      <pubDate>Wed, 01 Nov 2023 19:31:16 +0100</pubDate>
+      
+      <guid>https://example.com/posts/work-from-home/</guid>
+      <description>After presenting developers work from home data, I will present key opportunity and challenges that arise from it. I will then conclude with personal opinion and recommendation regarding work for home for developers.
 Key data Stack overflow 2023 developer survey disclosed that:
-42% respondants developers work in totally remote environment 42% in hybrid environment, mixing in office and remote work 16% in fully in-office. Self-employed developers work remotely for 70% of them.</description><content type="html"><![CDATA[<p>After presenting developers work from home data, I will present key opportunity and challenges that arise from it.
-I will then conclude with personal opinion and recommendation regarding work for home for developers.</p>
-<h1 id="key-data">Key data</h1>
-<p>Stack overflow 2023 developer survey disclosed that:</p>
-<ul>
-<li>42% respondants developers work in totally remote environment</li>
-<li>42% in hybrid environment, mixing in office and remote work</li>
-<li>16% in fully in-office.</li>
-<li>Self-employed developers work remotely for 70% of them.</li>
-</ul>
-<p>Because of collection source, the sample could be skewed towards more remote than in office sample, but remain one trustable labor source worldwide.</p>
-<p>An other survey on developers (terminal.io) found 80% say they they want to work remotely at least 80% of the time. Crossing data means around 40% of developers are dissatisfied with the remote policy of their company.</p>
-<p>Reasons invoked to prefer remote include productivity and focus, saving stress, and saving time &amp; money related no longer having to having to commute,
-while mentionned advantages to work in office include better communication, bonding, and better team efficiency.</p>
-<h1 id="adapting-to-the-employes">Adapting to the employes</h1>
-<h2 id="choosing-a-model">Choosing a model</h2>
-<p>When it comes to organizing the same team of developers, the 3 work styles (in-office, hybrid and fully remote) are challenging to make coexist. Based on the company choice, it will face different challenges.</p>
-<h2 id="challenges-and-optimization">Challenges and optimization</h2>
-<p>To make a comfortable work environment, any organization should:</p>
-<ul>
-<li>Providing reasonable commute time</li>
-<li>Enable means of quality communication</li>
-<li>Offer comfortable space and quiet</li>
-<li>Lack distractions</li>
-</ul>
-<p>These can be challenging to provide for both remote and in office organisation, for different reasons.</p>
-<h3 id="in-office-organization">In office organization</h3>
-<p>In office organization will face a lot of recruitment challenges. Their recruitment area is more limited, and developers who are willing to engage durably in them are fewer.</p>
-<p>However, they can work on their retention by providing to employees a high level of working confort. This includes, for people who would be inclined to prefer remote:</p>
-<ul>
-<li>A central positionning regarding transportation of the team.</li>
-<li>Sufficient space and separation to avoid lack of focus related to overhearing discussions.</li>
-<li>Formal and informal discussion spaces away from the screen.</li>
-</ul>
-<h3 id="remote-organization">Remote organization</h3>
-<p>Remote organization is highly desirable for both employees and employers, because it allows broader area employment, it removes necessity of large offices, it removes necessity to commute, and cut down distractions; without any possible doubt, in terms of efficiency remote is king.</p>
-<p>However, full remote is not suited to all, and transitionning to it is difficult for employers. Some employees can have unfriendly home environments, prefer the office, and if they have been hired on that premise, disagree with change.</p>
-<p>Finally, while efficient, it may be ill suited for the purpose of bonding between employees, for a set proportion of them who prefer in-person interaction by a higher margin.</p>
-<p>To counterbalance this, an efficient remote organization should ideally:</p>
-<ul>
-<li>Have in-person events. These events should include as little actual development as possible, and be more of a planned occasion to meet, plan in team, and have informal discussion.</li>
-<li>Propose to compensate for working in nomad offices such as coworking environments.</li>
-</ul>
-<h3 id="hybrid-organization">Hybrid organization</h3>
-<p>A hybrid workplace will be variably occupied, and both formal and informal meeting may need some level of effort to include remote workers: in office calls, remote meetings, and text retranscriptions.</p>
-<p>While this compromise can be tempting, it is important to care that employees can variably adapt to this organization, as they would need to transit with their equipment frequently, and might poorly coordinate their office days with the people they wanted to meet in person.</p>
-<p>Efficient organizations can include either a calendar to book the office, or an office large enough for everyone to come at the same time.</p>
-<p>They should also include working devices to make remote meetings such as meeting rooms with included quality audio i/o devices.</p>
-<h2 id="why-i-believe-in-remote">Why I believe in remote</h2>
-<p>Work from home and in office don&rsquo;t have to win one over another. Both offers probably should coexist to satisfy a large panel of opinions.</p>
-<p>However, as a decider one can reap stronger benefits from a work from home company model in the current state of the market.</p>
-<p>While this require some enagement to make these organizations work fluently, we saw how clever management can partly offset remote challenges.</p>
-<p>As a remote enthusiast, I cannot wait to see more company daring to embrace this model, as it is, to my own standpoint, a great opportunity both for businesses and employees.</p>
-]]></content></item><item><title>Green It</title><link>https://princess-entrapta.github.io/blog/posts/green-it/</link><pubDate>Fri, 27 Oct 2023 18:53:49 +0200</pubDate><guid>https://princess-entrapta.github.io/blog/posts/green-it/</guid><description>Some figures about IT and the environment Electronic devices and other IT related activity represent 4% of the total global carbon footprint, a figure that is growing every year due to sector growth. If the proportion may look small, it actually is important regarding other industry sectors; automobile sector, known for its pollution side effects, in its whole is for example estimated weighting roughly 6 to 9% of global carbon emissions.</description><content type="html"><![CDATA[<h1 id="some-figures-about-it-and-the-environment">Some figures about IT and the environment</h1>
-<ul>
-<li>Electronic devices and other IT related activity represent 4% of the total global carbon footprint, a figure that is growing every year due to sector growth.</li>
-<li>If the proportion may look small, it actually is important regarding other industry sectors; automobile sector, known for its pollution side effects, in its whole is for example estimated weighting roughly 6 to 9% of global carbon emissions. The entiere plane fleet is 2%.</li>
-<li>A computer (laptop or desktop) will during the course of its life emit a bit less than 100kg of CO2 eq. per year, cost which is between 70-90% manufacturing carbon footprint and the remaining in electricity costs.</li>
-<li>Among e-waste, monitors represent a significant volume. E-waste is difficult to recycle, and may under some circumstances become an environmental hazard.</li>
-</ul>
-<h1 id="misconceptions-around-green-it">Misconceptions around green IT</h1>
-<h2 id="latest-model-efficiency-compensates-for-replacement">Latest model efficiency compensates for replacement</h2>
-<p>This is trivially wrong based on the above facts. Even 10 years ago, e-devices were for most part energetically sober. However, their manufacturing and disposal are polluting processes.
-Besides, unlike it could be the case for a car, having more efficiency at hand does not necessarily result in less consumption. If anything, more powerful model create new uses, creating more consumption.</p>
-<h2 id="some-programming-languages-are-less-green-than-others">Some programming languages are less green than others</h2>
-<p>Some people pointed out because Python is several dozen times less efficient than C, it is dozen times less green than C. While not completely wrong, this is simplistic.</p>
-<p>It&rsquo;s only measuring runtime power consumption. Programs written in Python could take less time to write, thus possibly compensating.
-Resources on server side are rarely optimised below a certain threshold, so if two programs take one same vps instance, they are polluting the same.
-Finally, providing services more efficiently power-wise might not decrease overall consuption for tech, if it drives price down it may in turn increase demand.</p>
-<h2 id="we-need-to-sober-up-on-emails">We need to sober up on emails</h2>
-<p>This is among all conceptions I heard one of the most strange. SMTP traffic is perhaps 1% of the world&rsquo;s internet traffic. A mail is a few KB. A single video on yt will be thousands of times more costy.
-Yet, this is a misconception I often have seen vehiculed by some corporations, encouraging their employees to &ldquo;green gestures&rdquo; such as deleting their email. But that&rsquo;s misleading, as its not even a drop in the ocean</p>
-<h1 id="positively-changing-actions">Positively changing actions</h1>
-<p>Over the last few years, there have been a massive shift in our usage of digital devices.</p>
-<ul>
-<li>We use videos a ton, for everything</li>
-<li>We spend a lot more time gaming</li>
-<li>We get helped more and more by new content generators and smart assistants</li>
-</ul>
-<p>These 3 usages are heavily impacting traffic and waste, each in a different manner:</p>
-<ul>
-<li>Netflix, YouTube, Tiktok, Amazon prime, Disney +, cumulate almost 40% of the global internet traffic, with massive repercussions on the usage of servers, routers etc. since video content is heavy</li>
-<li>Gaming represent a fair portion of traffic, but more importantly have become an increasingly common reason to renew hardware for more powerful versions</li>
-<li>Content generators are sober on their apparent side, but bots like ChatGpt requires absolutely massive backend infrastructure to ingest and process a lot of data. No less than 240 CO2 tons (500 computer manufacturing equivalent) are thrown every year in the training of the artificial intelligence. And this is becoming ordinary business&hellip;</li>
-</ul>
-<h1 id="conclusion">Conclusion</h1>
-<p>Concerns about electronic pollution is legitimate. But it would be foolish to believe we could stop it by writing more efficient programs. We however can take responsibility in reducing the entertainment usage of the digital tool, and use data-hungry AI models with measure.</p>
-]]></content></item><item><title>Dockerfile for small Rust images (with dependency build caching)</title><link>https://princess-entrapta.github.io/blog/posts/build-rust-dockerfile/</link><pubDate>Wed, 25 Oct 2023 12:56:00 +0200</pubDate><guid>https://princess-entrapta.github.io/blog/posts/build-rust-dockerfile/</guid><description>Introduction After reading multiple tutorials for building docker images and optimize them, I compiled an optimized Dockerfile that can:
+42% respondants developers work in totally remote environment 42% in hybrid environment, mixing in office and remote work 16% in fully in-office. Self-employed developers work remotely for 70% of them.</description>
+    </item>
+    
+    <item>
+      <title>Green It</title>
+      <link>https://example.com/posts/green-it/</link>
+      <pubDate>Fri, 27 Oct 2023 18:53:49 +0200</pubDate>
+      
+      <guid>https://example.com/posts/green-it/</guid>
+      <description>Some figures about IT and the environment Electronic devices and other IT related activity represent 4% of the total global carbon footprint, a figure that is growing every year due to sector growth. If the proportion may look small, it actually is important regarding other industry sectors; automobile sector, known for its pollution side effects, in its whole is for example estimated weighting roughly 6 to 9% of global carbon emissions.</description>
+    </item>
+    
+    <item>
+      <title>Dockerfile for small Rust images (with dependency build caching)</title>
+      <link>https://example.com/posts/build-rust-dockerfile/</link>
+      <pubDate>Wed, 25 Oct 2023 12:56:00 +0200</pubDate>
+      
+      <guid>https://example.com/posts/build-rust-dockerfile/</guid>
+      <description>Introduction After reading multiple tutorials for building docker images and optimize them, I compiled an optimized Dockerfile that can:
 Have final images that are small, in the 50MB range Benefit from docker caching, allowing to have build times under 10s if you don&amp;rsquo;t change dependencies We will assume here you start with a project my_app you already have or have created with cargo new.
-Setting up We use this docker file.</description><content type="html"><![CDATA[<h1 id="introduction">Introduction</h1>
-<p>After reading multiple tutorials for building docker images and optimize them, I compiled an optimized Dockerfile that can:</p>
-<ul>
-<li>Have final images that are small, in the 50MB range</li>
-<li>Benefit from docker caching, allowing to have build times under 10s if you don&rsquo;t change dependencies</li>
-</ul>
-<p>We will assume here you start with a project <code>my_app</code> you already have or have created with <code>cargo new</code>.</p>
-<h1 id="setting-up">Setting up</h1>
-<p>We use this docker file. This technique is called a multi-stage build. When docker builds with <code>docker build</code> or <code>docker compose build</code>, it creates two successive images:</p>
-<ul>
-<li>One that serve to create the binary</li>
-<li>One that will execute the binary without the build environment</li>
-</ul>
-<p>The second one can be minimized by removing unecessary system components that are already bundled in the produced binary.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="c">## BUILDER IMAGE</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="s"> rust:1.73 as builder</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /usr/app</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> rustup target add x86_64-unknown-linux-musl<span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> apt update <span class="o">&amp;&amp;</span> apt install -y musl-tools musl-dev<span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> update-ca-certificates<span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /usr/app/api_gateway</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> adduser <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --disabled-password <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --gecos <span class="s2">&#34;&#34;</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --home <span class="s2">&#34;/nonexistent&#34;</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --shell <span class="s2">&#34;/sbin/nologin&#34;</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --no-create-home <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --uid <span class="m">10001</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    userland<span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> ./Cargo.toml ./Cargo.toml<span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> mkdir src <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&#34;fn main(){}&#34;</span> &gt; ./src/main.rs<span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Build the dependencies. This is the longest part and we don´t want</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># to repeat it if there is no dependency change,</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># which is why there is no copy or volume for sources at this point</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> cargo build --target x86_64-unknown-linux-musl --release<span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> ./src ./src<span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 5. Build for release.</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> cargo build --target x86_64-unknown-linux-musl --release<span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c">## EXECUTOR</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="s"> alpine</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># You can include a healthcheck here, for demons and network-based services.</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># For http checks, don&#39;t forget curl is not readily available on alpine</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ &#34;curl --fail http://localhost:8000/health&#34; ]</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># RUN apk add curl</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> apk add libc6-compat<span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /opt</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> --from<span class="o">=</span>builder /etc/passwd /etc/passwd<span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> --from<span class="o">=</span>builder /etc/group /etc/group<span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> --from<span class="o">=</span>builder /usr/app/my_app/target/x86_64-unknown-linux-musl/release/my_app ./<span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> chown userland:userland ./my_app<span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;/usr/app/my_app&#34;</span><span class="p">]</span><span class="err">
-</span></span></span></code></pre></div><p>Alpine doesn&rsquo;t natively provide glibc or libssl. For this reason, we will need some additions in the Cargo.toml file.</p>
-<p>At end of file, below your dependencies, add the following section:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[target.&#39;cfg(all(target_env = &#34;musl&#34;, target_pointer_width = &#34;64&#34;))&#39;.dependencies.jemallocator]</span>
-</span></span><span class="line"><span class="cl"><span class="na">version</span> <span class="o">=</span> <span class="s">&#34;0.3&#34;</span>
-</span></span></code></pre></div><p>You can learn more about what is jemalloc <a href="https://jemalloc.net/">here</a></p>
-<p>If you use things that are dependent of ssl, such as reqwest, you might also need to tweak the dependency to include <code>rust-tls</code>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">reqwest</span> <span class="o">=</span> <span class="s">{version = &#34;0.11&#34;, default-features = false, features = [&#34;json&#34;, &#34;rustls-tls&#34;] }</span>
-</span></span></code></pre></div><h2 id="running">Running</h2>
-<p>Try to <code>docker build</code> your image. If it is successful, try to <code>docker run</code> the obtained container. It should execute your binary.</p>
-<p>You notice your first <code>docker build</code> was probably long, several minutes long perhaps.</p>
-<p>Try to modify your sources, then <code>docker build</code> again. You should notice the build to be significantly faster.</p>
-<p>Use <code>docker images</code> and inspect image size. Smaller images are faster to push and pull over network, they also cost less to store.</p>
-<h1 id="conclusion">Conclusion</h1>
-<p>We learned to make a multi-stage build to produce small docker images for Rust, and use the best of docker caching to avoid a costy rebuild
-of dependencies at every source change.</p>
-<h2 id="thanks-to--further-reading">Thanks to / further reading</h2>
-<ul>
-<li><a href="https://docs.docker.com/build/building/multi-stage/">Multi stage build for docker</a></li>
-<li><a href="https://hackmd.io/@kobzol/S17NS71bh">Notes from cargo team on dependency caching</a></li>
-</ul>
-]]></content></item></channel></rss>
+Setting up We use this docker file.</description>
+    </item>
+    
+  </channel>
+</rss>

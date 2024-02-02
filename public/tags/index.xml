@@ -1,1 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tags on Diane M's blog</title><link>https://princess-entrapta.github.io/blog/tags/</link><description>Recent content in Tags on Diane M's blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 01 Nov 2023 19:31:16 +0100</lastBuildDate><atom:link href="https://princess-entrapta.github.io/blog/tags/index.xml" rel="self" type="application/rss+xml"/><item><title>untagged</title><link>https://princess-entrapta.github.io/blog/tags/untagged/</link><pubDate>Wed, 01 Nov 2023 19:31:16 +0100</pubDate><guid>https://princess-entrapta.github.io/blog/tags/untagged/</guid><description/></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Diane M&#39;s blog</title>
+    <link>https://example.com/tags/</link>
+    <description>Recent content in Tags on Diane M&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Wed, 01 Nov 2023 19:31:16 +0100</lastBuildDate><atom:link href="https://example.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>untagged</title>
+      <link>https://example.com/tags/untagged/</link>
+      <pubDate>Wed, 01 Nov 2023 19:31:16 +0100</pubDate>
+      
+      <guid>https://example.com/tags/untagged/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
