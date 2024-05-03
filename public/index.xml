@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Fri, 02 Feb 2024 07:29:33 +0100</lastBuildDate><atom:link href="https://princess-entrapta.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 03 May 2024 09:11:55 +0200</lastBuildDate><atom:link href="https://princess-entrapta.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Build Rust With Sccache</title>
+      <link>https://princess-entrapta.github.io/blog/posts/build-rust-sccache/</link>
+      <pubDate>Fri, 03 May 2024 09:11:55 +0200</pubDate>
+      
+      <guid>https://princess-entrapta.github.io/blog/posts/build-rust-sccache/</guid>
+      <description>The problem In a previous article, I&amp;rsquo;ve been discussing optimal ways to rebuild docker images that embed a rust binary. However, being able to rebuild locally from builder image does not mean you can rebuild it easily in a CI, and that you won&amp;rsquo;t be wasting time in rebuilding the dependencies over and over.
+The tricky part is that within a CI environment, you have to start over from a given image; when the dependencies get updated, either building that image can be costy, or building from that image can get costy, and there is no way around that, especially if you intend to work with an automated dependency upgrade tool such as Dependabot or Renovate, since they will create multiple merge requests for every lib they can upgrade and rebase it (hence rerunning pipelines) for every commit on the main branch.</description>
+    </item>
+    
     <item>
       <title>Feature Production</title>
       <link>https://princess-entrapta.github.io/blog/posts/feature-production/</link>

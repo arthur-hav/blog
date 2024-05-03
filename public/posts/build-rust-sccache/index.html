@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+<meta itemprop="name" content="Build Rust With Sccache">
+<meta itemprop="description" content="The problem In a previous article, I&rsquo;ve been discussing optimal ways to rebuild docker images that embed a rust binary. However, being able to rebuild locally from builder image does not mean you can rebuild it easily in a CI, and that you won&rsquo;t be wasting time in rebuilding the dependencies over and over.
+The tricky part is that within a CI environment, you have to start over from a given image; when the dependencies get updated, either building that image can be costy, or building from that image can get costy, and there is no way around that, especially if you intend to work with an automated dependency upgrade tool such as Dependabot or Renovate, since they will create multiple merge requests for every lib they can upgrade and rebase it (hence rerunning pipelines) for every commit on the main branch."><meta itemprop="datePublished" content="2024-05-03T09:11:55+02:00" />
+<meta itemprop="dateModified" content="2024-05-03T09:11:55+02:00" />
+<meta itemprop="wordCount" content="477">
+<meta itemprop="keywords" content="untagged," /><meta property="og:title" content="Build Rust With Sccache" />
+<meta property="og:description" content="The problem In a previous article, I&rsquo;ve been discussing optimal ways to rebuild docker images that embed a rust binary. However, being able to rebuild locally from builder image does not mean you can rebuild it easily in a CI, and that you won&rsquo;t be wasting time in rebuilding the dependencies over and over.
+The tricky part is that within a CI environment, you have to start over from a given image; when the dependencies get updated, either building that image can be costy, or building from that image can get costy, and there is no way around that, especially if you intend to work with an automated dependency upgrade tool such as Dependabot or Renovate, since they will create multiple merge requests for every lib they can upgrade and rebase it (hence rerunning pipelines) for every commit on the main branch." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://princess-entrapta.github.io/blog/posts/build-rust-sccache/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-05-03T09:11:55+02:00" />
+<meta property="article:modified_time" content="2024-05-03T09:11:55+02:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Build Rust With Sccache"/>
+<meta name="twitter:description" content="The problem In a previous article, I&rsquo;ve been discussing optimal ways to rebuild docker images that embed a rust binary. However, being able to rebuild locally from builder image does not mean you can rebuild it easily in a CI, and that you won&rsquo;t be wasting time in rebuilding the dependencies over and over.
+The tricky part is that within a CI environment, you have to start over from a given image; when the dependencies get updated, either building that image can be costy, or building from that image can get costy, and there is no way around that, especially if you intend to work with an automated dependency upgrade tool such as Dependabot or Renovate, since they will create multiple merge requests for every lib they can upgrade and rebase it (hence rerunning pipelines) for every commit on the main branch."/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+	<link rel="manifest" href="/blog/site.webmanifest">
+	<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/blog/favicon.ico">
+
+	<title>Build Rust With Sccache</title>
+	<link rel="stylesheet" href="https://princess-entrapta.github.io/blog/css/style.min.037b6ee8f8c1baab6a3d0a9da11c3ff18a7552471f16c59fd98538d5ce99208b.css" integrity="sha256-A3tu6PjBuqtqPQqdoRw/8Yp1UkcfFsWf2YU41c6ZIIs=" crossorigin="anonymous">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://princess-entrapta.github.io/blog">Diane M&#39;s blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://princess-entrapta.github.io/blog/posts/">Posts</a>
+				<a href="https://princess-entrapta.github.io/blog/about-hugo/">About</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<span class="hdr-social hide-in-mobile"><a href="https://github.com/princess-entrapta" target="_blank" rel="noopener me" title="Github"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></span><button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://princess-entrapta.github.io/blog/posts/">Posts</a></li>
+			<li><a href="https://princess-entrapta.github.io/blog/about-hugo/">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>May 3, 2024</span></div>
+				<h1>Build Rust With Sccache</h1>
+			</header>
+			<div class="content">
+				<h1 id="the-problem">The problem<a href="#the-problem" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h1>
+<p>In a previous article, I&rsquo;ve been discussing optimal ways to rebuild docker images that embed a rust binary. However,
+being able to rebuild locally from builder image does not mean you can rebuild it easily in a CI, and that you won&rsquo;t be
+wasting time in rebuilding the dependencies over and over.</p>
+<p>The tricky part is that within a CI environment, you have to start over from a given image; when the dependencies get
+updated, either building that image can be costy, or building from that image can get costy, and there is no way around
+that, especially if you intend to work with an automated dependency upgrade tool
+such as Dependabot or Renovate, since they will create multiple merge requests for every lib they can upgrade and
+rebase it (hence rerunning pipelines) for every commit on the main branch.</p>
+<h2 id="a-versatile-and-cost-effective-solution">A versatile and cost effective solution<a href="#a-versatile-and-cost-effective-solution" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<p>Or is there? Actually, you can cache individual crate compilation result, if they are not dynamically linked with a
+system lib; this is possible through an utility called sccache. It require a bit of setup, but we will walk it through;
+it&rsquo;s not too complicated.</p>
+<p>We will work with AWS S3 buckets. In my experiment, I&rsquo;ve been able to save 1:30 of gitlab runner of every compilation.
+They are roughly priced 0.01$ every minute on the cloud offer (past free tier), so for 10 complies I &ldquo;saved&rdquo; 15 cent
+compile, and had 1 cent billed on my AWS, making it cost-effective for the time it saves.</p>
+<h2 id="setup-overview">Setup overview<a href="#setup-overview" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<p>To setup sccache, I&rsquo;ve created a private S3 bucket on AWS, setup an IAM for my CI, and gave it access to the bucket.
+They are located in the interface and there are multiple tutorials you can find for that part. Use a location that
+will be in proximity for your CI runners, as this will help reduce latencies.</p>
+<p>Then, all you have to do is to setup sccache; I use gitlab variables to transfer credentials in the CI job, that are
+located in settings -&gt; CI/CD -&gt; variables, where I defined AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY according to my
+IAM creds, RUSTC_WRAPPER to sccache, SCCACHE_BUCKET with bucket name, SCCACHE_REGION with the region, and two other
+settings to true: SCCACHE_S3_SERVER_SIDE_ENCRYPTION and SCCACHE_S3_USE_SSL.</p>
+<p>Finally, we use a Dockerfile and a .gitlabci that will use this. My Dockerfile is simply</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> rust:latest</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> cargo install sccache<span class="err">
+</span></span></span></code></pre></div><p>You will need to build and push that to registry. Create a personal access token, then</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$MY_TOKEN</span><span class="s2">&#34;</span> <span class="p">|</span> docker login registry.gitlab.com -u username --password-stdin
+</span></span><span class="line"><span class="cl">docker build -t registry.gitlab.com/username/project .
+</span></span><span class="line"><span class="cl">docker push -t registry.gitlab.com/username/project
+</span></span></code></pre></div><p>This will create you sccache image.</p>
+<p>Finally, setup the gitlab ci.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">$CI_REGISTRY/username/project:latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">test</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l">test</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">cargo test --release --workspace --verbose</span><span class="w">
+</span></span></span></code></pre></div><p>It worked on my first try, which is notable and gives me confidence you should be able to reproduce this with minimal
+hassle.</p>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://princess-entrapta.github.io/blog/tags/untagged">untagged</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>477 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2024-05-03 09:11 &#43;0200</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="prev-post" href="https://princess-entrapta.github.io/blog/posts/feature-production/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>Feature Production</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2024 <a href="https://princess-entrapta.github.io/blog">Diane M.</a> &#183; <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener">CC0 License</a></p>
+		<p>
+			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://princess-entrapta.github.io/blog/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+		</p>
+	</footer>
+
+
+
+	<script src="https://princess-entrapta.github.io/blog/js/bundle.min.580988ed2982bcbb74a1773c7abea97b43e4c43b9324e10cda0813ec6ec4bb67.js" integrity="sha256-WAmI7SmCvLt0oXc8er6pe0PkxDuTJOEM2ggT7G7Eu2c=" crossorigin="anonymous"></script>
+	
+
+</body>
+
+</html>

@@ -2,19 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://princess-entrapta.github.io/blog/</loc>
-    <lastmod>2024-02-02T07:29:33+01:00</lastmod>
+    <loc>https://princess-entrapta.github.io/blog/posts/build-rust-sccache/</loc>
+    <lastmod>2024-05-03T09:11:55+02:00</lastmod>
   </url><url>
-    <loc>https://princess-entrapta.github.io/blog/posts/feature-production/</loc>
-    <lastmod>2024-02-02T07:29:33+01:00</lastmod>
+    <loc>https://princess-entrapta.github.io/blog/</loc>
+    <lastmod>2024-05-03T09:11:55+02:00</lastmod>
   </url><url>
     <loc>https://princess-entrapta.github.io/blog/posts/</loc>
-    <lastmod>2024-02-02T07:29:33+01:00</lastmod>
+    <lastmod>2024-05-03T09:11:55+02:00</lastmod>
   </url><url>
     <loc>https://princess-entrapta.github.io/blog/tags/</loc>
-    <lastmod>2024-02-02T07:29:33+01:00</lastmod>
+    <lastmod>2024-05-03T09:11:55+02:00</lastmod>
   </url><url>
     <loc>https://princess-entrapta.github.io/blog/tags/untagged/</loc>
+    <lastmod>2024-05-03T09:11:55+02:00</lastmod>
+  </url><url>
+    <loc>https://princess-entrapta.github.io/blog/posts/feature-production/</loc>
     <lastmod>2024-02-02T07:29:33+01:00</lastmod>
   </url><url>
     <loc>https://princess-entrapta.github.io/blog/posts/work-from-home/</loc>
