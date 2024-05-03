@@ -11,7 +11,7 @@
 <meta itemprop="description" content="The problem In a previous article, I&rsquo;ve been discussing optimal ways to rebuild docker images that embed a rust binary. However, being able to rebuild locally from builder image does not mean you can rebuild it easily in a CI, and that you won&rsquo;t be wasting time in rebuilding the dependencies over and over.
 The tricky part is that within a CI environment, you have to start over from a given image; when the dependencies get updated, either building that image can be costy, or building from that image can get costy, and there is no way around that, especially if you intend to work with an automated dependency upgrade tool such as Dependabot or Renovate, since they will create multiple merge requests for every lib they can upgrade and rebase it (hence rerunning pipelines) for every commit on the main branch."><meta itemprop="datePublished" content="2024-05-03T09:11:55+02:00" />
 <meta itemprop="dateModified" content="2024-05-03T09:11:55+02:00" />
-<meta itemprop="wordCount" content="477">
+<meta itemprop="wordCount" content="484">
 <meta itemprop="keywords" content="untagged," /><meta property="og:title" content="Build Rust With Sccache" />
 <meta property="og:description" content="The problem In a previous article, I&rsquo;ve been discussing optimal ways to rebuild docker images that embed a rust binary. However, being able to rebuild locally from builder image does not mean you can rebuild it easily in a CI, and that you won&rsquo;t be wasting time in rebuilding the dependencies over and over.
 The tricky part is that within a CI environment, you have to start over from a given image; when the dependencies get updated, either building that image can be costy, or building from that image can get costy, and there is no way around that, especially if you intend to work with an automated dependency upgrade tool such as Dependabot or Renovate, since they will create multiple merge requests for every lib they can upgrade and rebase it (hence rerunning pipelines) for every commit on the main branch." />
@@ -95,15 +95,16 @@ will be in proximity for your CI runners, as this will help reduce latencies.</p
 located in settings -&gt; CI/CD -&gt; variables, where I defined AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY according to my
 IAM creds, RUSTC_WRAPPER to sccache, SCCACHE_BUCKET with bucket name, SCCACHE_REGION with the region, and two other
 settings to true: SCCACHE_S3_SERVER_SIDE_ENCRYPTION and SCCACHE_S3_USE_SSL.</p>
-<p>Finally, we use a Dockerfile and a .gitlabci that will use this. My Dockerfile is simply</p>
+<p>We use a Dockerfile and a .gitlabci.yml that will use this. In my setup I build directly in the CI, without DIND.
+My Dockerfile is simply</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> rust:latest</span><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> cargo install sccache<span class="err">
-</span></span></span></code></pre></div><p>You will need to build and push that to registry. Create a personal access token, then</p>
+</span></span></span></code></pre></div><p>Create a personal access token, then build and push that to registry.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$MY_TOKEN</span><span class="s2">&#34;</span> <span class="p">|</span> docker login registry.gitlab.com -u username --password-stdin
 </span></span><span class="line"><span class="cl">docker build -t registry.gitlab.com/username/project .
 </span></span><span class="line"><span class="cl">docker push -t registry.gitlab.com/username/project
-</span></span></code></pre></div><p>This will create you sccache image.</p>
+</span></span></code></pre></div><p>This will create you sccache container image.</p>
 <p>Finally, setup the gitlab ci.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">$CI_REGISTRY/username/project:latest</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
@@ -120,7 +121,7 @@ hassle.</p>
 				<p>
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://princess-entrapta.github.io/blog/tags/untagged">untagged</a></span>
 				</p>
-				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>477 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>484 Words</p>
 				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2024-05-03 09:11 &#43;0200</p>
 			</footer>
 		</article>

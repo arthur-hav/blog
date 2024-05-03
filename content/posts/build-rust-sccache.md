@@ -41,7 +41,8 @@ located in settings -> CI/CD -> variables, where I defined AWS_ACCESS_KEY_ID, AW
 IAM creds, RUSTC_WRAPPER to sccache, SCCACHE_BUCKET with bucket name, SCCACHE_REGION with the region, and two other
 settings to true: SCCACHE_S3_SERVER_SIDE_ENCRYPTION and SCCACHE_S3_USE_SSL.
 
-Finally, we use a Dockerfile and a .gitlabci that will use this. My Dockerfile is simply
+We use a Dockerfile and a .gitlabci.yml that will use this. In my setup I build directly in the CI, without DIND.
+My Dockerfile is simply
 
 ```Dockerfile
 FROM rust:latest
@@ -49,7 +50,7 @@ FROM rust:latest
 RUN cargo install sccache
 ```
 
-You will need to build and push that to registry. Create a personal access token, then
+Create a personal access token, then build and push that to registry.
 
 ```bash
 echo "$MY_TOKEN" | docker login registry.gitlab.com -u username --password-stdin
@@ -58,7 +59,7 @@ docker push -t registry.gitlab.com/username/project
 
 ```
 
-This will create you sccache image.
+This will create you sccache container image.
 
 Finally, setup the gitlab ci.
 

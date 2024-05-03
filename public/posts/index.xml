@@ -41,15 +41,16 @@ will be in proximity for your CI runners, as this will help reduce latencies.</p
 located in settings -&gt; CI/CD -&gt; variables, where I defined AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY according to my
 IAM creds, RUSTC_WRAPPER to sccache, SCCACHE_BUCKET with bucket name, SCCACHE_REGION with the region, and two other
 settings to true: SCCACHE_S3_SERVER_SIDE_ENCRYPTION and SCCACHE_S3_USE_SSL.</p>
-<p>Finally, we use a Dockerfile and a .gitlabci that will use this. My Dockerfile is simply</p>
+<p>We use a Dockerfile and a .gitlabci.yml that will use this. In my setup I build directly in the CI, without DIND.
+My Dockerfile is simply</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> rust:latest</span><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> cargo install sccache<span class="err">
-</span></span></span></code></pre></div><p>You will need to build and push that to registry. Create a personal access token, then</p>
+</span></span></span></code></pre></div><p>Create a personal access token, then build and push that to registry.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$MY_TOKEN</span><span class="s2">&#34;</span> <span class="p">|</span> docker login registry.gitlab.com -u username --password-stdin
 </span></span><span class="line"><span class="cl">docker build -t registry.gitlab.com/username/project .
 </span></span><span class="line"><span class="cl">docker push -t registry.gitlab.com/username/project
-</span></span></code></pre></div><p>This will create you sccache image.</p>
+</span></span></code></pre></div><p>This will create you sccache container image.</p>
 <p>Finally, setup the gitlab ci.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">$CI_REGISTRY/username/project:latest</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
